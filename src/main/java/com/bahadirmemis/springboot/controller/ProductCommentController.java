@@ -30,9 +30,10 @@ public class ProductCommentController {
     private UserService userService;
 
     // (3.1)
+    // finds productComments of a user
+    // if user doesn't have any comment, it throws an exception.
     @GetMapping("users/{userId}")
     public List<ProductCommentDto> findProductCommentsOfUser(@PathVariable("userId") Long userId){
-
 
         List<ProductComment> productCommentList = productCommentService.findAllByUser_Id(userId);
         List<ProductCommentDto> productCommentListDto = ProductCommentConverter.INSTANCE.convertProductCommentListToProductCommentDtoList(productCommentList);
@@ -48,6 +49,8 @@ public class ProductCommentController {
 
 
     // (3.2)
+    //  finds comments of a product
+    // if the product hasn't got any comment, the method throws an exception.
     @GetMapping("products/{productId}")
     public List<ProductCommentDto> findAllCommentsOfProduct(@PathVariable("productId") Long productId){
         List<ProductComment> productCommentsList = productCommentService.findAllByProduct_Id(productId);

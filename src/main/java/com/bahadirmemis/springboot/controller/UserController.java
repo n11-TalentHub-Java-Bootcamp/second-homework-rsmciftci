@@ -32,7 +32,7 @@ public class UserController {
     // Before saving User to DB, saveUser method checks if username, email, or id is already saved to db.
     // If posted id is already saved in db, it would update the user with the postted id if it wasn't controlled
     // Identical email address or username should be taken by more than one user.
-    // Phone number is not check, it's something relative.
+    // Phone number is not checked, it's something relative.
     @PostMapping("")
     public UserDto saveUser(@RequestBody UserDto userDto){
 
@@ -61,9 +61,10 @@ public class UserController {
     }
 
     // (2.5)
+    // Before deleting User, it checks if username and phoneNumeber matches
+    // if it doesn't, method throws an exception.
     @DeleteMapping(value = "userName/{userName}/phoneNumber/{phoneNumber}")
     public void deleteUser(@PathVariable("userName") String userName,@PathVariable("phoneNumber") String phoneNumber){
-
 
         User user = new User();
         user.setUserName(userName);
@@ -76,10 +77,6 @@ public class UserController {
         }else{
             throw new UserNameAndPhoneNumberNotMatchException(user.getUserName() + " username didn't match with " + user.getPhoneNumber() + " phone number.");
         }
-
-
-
-
     }
 
     // (2.2)
